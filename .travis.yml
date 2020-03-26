@@ -1,0 +1,6 @@
+language: bash
+services:
+  - docker
+script:
+  - docker run --rm -v ${PWD}:/chart -w /chart alpine/helm:3.0.2 lint .
+  - ./trigger_publish.sh
