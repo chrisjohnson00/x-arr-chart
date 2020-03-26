@@ -5,15 +5,15 @@
 replicaCount: 1
 
 image:
-  repository: linuxserver/lidarr
-  tag: 0.7.1.1381-ls6
+  repository: linuxserver/sonarr
+  tag: 3.0.3.741-ls190
   pullPolicy: IfNotPresent
-  port: 8686
+  port: 8989
 
-dataPath: "/music"
+dataPath: "/tv"
 imagePullSecrets: []
-nameOverride: "lidarr"
-fullnameOverride: "lidarr"
+nameOverride: "sonarr"
+fullnameOverride: "sonarr"
 
 podSecurityContext: {}
   # fsGroup: 2000
@@ -36,7 +36,7 @@ ingress:
     # kubernetes.io/ingress.class: nginx
     # kubernetes.io/tls-acme: "true"
   hosts:
-    - host: lidarr.cluster.int
+    - host: sonarr.cluster.int
       paths: ['/']
   tls: []
   #  - secretName: chart-example-tls

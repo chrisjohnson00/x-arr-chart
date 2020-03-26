@@ -50,10 +50,10 @@ spec:
       volumes:
         - name: config
           persistentVolumeClaim:
-            claimName: pvc-config
+            claimName: pvc-config-{{ .Values.nameOverride}}
         - name: data
           persistentVolumeClaim:
-            claimName: pvc-data
+            claimName: pvc-data-{{ .Values.nameOverride}}
         - name: downloads
           persistentVolumeClaim:
-            claimName: pvc-downloads
+            claimName: pvc-downloads-{{ .Values.nameOverride}}
