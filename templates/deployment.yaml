@@ -1,11 +1,12 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: {{ include "x-arr-chart.fullname" . }}
   labels:
     {{- include "x-arr-chart.labels" . | nindent 4 }}
 spec:
   replicas: {{ .Values.replicaCount }}
+  serviceName: {{ .Values.nameOverride }}
   selector:
     matchLabels:
       {{- include "x-arr-chart.selectorLabels" . | nindent 6 }}
