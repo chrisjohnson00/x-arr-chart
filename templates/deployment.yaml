@@ -54,6 +54,7 @@ spec:
         - name: data
           persistentVolumeClaim:
             claimName: pvc-data-{{ .Values.nameOverride}}
+        # @TODO - this needs to be a user specified PV to allow the download dir to be shared between x-arr apps
         - name: downloads
           persistentVolumeClaim:
             claimName: pvc-downloads-{{ .Values.nameOverride}}
