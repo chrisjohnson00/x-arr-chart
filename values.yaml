@@ -14,6 +14,10 @@ dataPath: "/tv"
 imagePullSecrets: []
 nameOverride: "sonarr"
 fullnameOverride: "sonarr"
+nfsServerHost: 192.168.10.126
+nfsServerPath: /data/nfs/downloads
+downloadStorage: 10Gi
+storageClassName: nfs-client
 
 podSecurityContext: {}
   # fsGroup: 2000

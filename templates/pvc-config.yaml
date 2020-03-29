@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: pvc-config-{{ .Values.nameOverride}}
+  name: nfs-{{ .Values.nameOverride}}-config
 spec:
   accessModes:
     - ReadWriteOnce
