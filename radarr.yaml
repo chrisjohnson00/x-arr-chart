@@ -10,7 +10,7 @@ image:
   pullPolicy: IfNotPresent
   port: 7878
 
-dataPath: "/movides"
+dataPath: "/movies"
 imagePullSecrets: []
 nameOverride: "radarr"
 fullnameOverride: "radarr"

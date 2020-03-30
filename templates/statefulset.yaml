@@ -35,10 +35,12 @@ spec:
             httpGet:
               path: /
               port: http
+            initialDelaySeconds: 60
           readinessProbe:
             httpGet:
               path: /
               port: http
+            initialDelaySeconds: 60
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
           volumeMounts:
@@ -50,12 +52,11 @@ spec:
               mountPath: /downloads
       volumes:
         - name: config
-          persistentVolumeClaim:
-            claimName: nfs-{{ .Values.nameOverride}}-config
+          hostPath:
+            path: "{{ .Values.localPath }}/{{ .Values.nameOverride }}-config"
         - name: data
-          persistentVolumeClaim:
-            claimName: pvc-data-{{ .Values.nameOverride}}
-        # @TODO - this needs to be a user specified PV to allow the download dir to be shared between x-arr apps
+          hostPath:
+            path: "{{ .Values.localPath }}/{{ .Values.nameOverride }}-data"
         - name: downloads
-          persistentVolumeClaim:
-            claimName: nfs-{{ .Values.nameOverride}}-download
+          hostPath:
+            path: "{{ .Values.localPath }}/downloads"
