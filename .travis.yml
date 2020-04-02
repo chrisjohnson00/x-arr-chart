@@ -1,6 +1,13 @@
 language: bash
 services:
   - docker
-script:
-  - docker run --rm -v ${PWD}:/chart -w /chart alpine/helm:3.0.2 lint .
-#  - ./trigger_publish.sh
+jobs:
+  include:
+    - stage: lint chart
+      script:
+        - docker run --rm -v ${PWD}:/chart -w /chart alpine/helm:3.0.2 lint .
+      if: tag is blank
+    - stage: publish chart
+      script:
+        - ./trigger_publish.sh
+      if: tag IS present

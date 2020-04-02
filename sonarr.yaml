@@ -50,3 +50,11 @@ resources:
   requests:
     cpu: 50m
     memory: 200Mi
+
+probes:
+  livenessProbe:
+    timeoutSeconds: 10
+    periodSeconds: 20
+  readinessProbe:
+    timeoutSeconds: 10
+    periodSeconds: 20

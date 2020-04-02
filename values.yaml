@@ -18,6 +18,14 @@ localPath: /nfs-data
 downloadStorage: 10Gi
 configStorage: 1Gi
 
+probes:
+  livenessProbe:
+    timeoutSeconds: 5
+    periodSeconds: 20
+  readinessProbe:
+    timeoutSeconds: 5
+    periodSeconds: 20
+
 podSecurityContext: {}
   # fsGroup: 2000
 
