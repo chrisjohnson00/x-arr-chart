@@ -2,11 +2,9 @@
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
 
-replicaCount: 1
-
 image:
   repository: linuxserver/radarr
-  tag: 3.0.0.2741-ls2
+  tag: 3.0.0.3465-ls20
   pullPolicy: IfNotPresent
   port: 7878
 
@@ -21,3 +19,7 @@ ingress:
 
 pv:
   localPath: /local-pv/radarr
+
+nfs:
+  path:
+    data: /data/video/radarr
