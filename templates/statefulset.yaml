@@ -35,14 +35,14 @@ spec:
             httpGet:
               path: /
               port: http
-            initialDelaySeconds: 60
+            initialDelaySeconds: {{ .Values.probes.livenessProbe.initialDelaySeconds }}
             timeoutSeconds: {{ .Values.probes.livenessProbe.timeoutSeconds }}
             periodSeconds: {{ .Values.probes.livenessProbe.periodSeconds }}
           readinessProbe:
             httpGet:
               path: /
               port: http
-            initialDelaySeconds: 60
+            initialDelaySeconds: {{ .Values.probes.readinessProbe.initialDelaySeconds }}
             timeoutSeconds: {{ .Values.probes.readinessProbe.timeoutSeconds }}
             periodSeconds: {{ .Values.probes.readinessProbe.periodSeconds }}
           resources:
@@ -54,13 +54,22 @@ spec:
               mountPath: {{ .Values.dataPath }}
             - name: downloads
               mountPath: /downloads
+          env:
+            - name: TZ
+              value: "{{ .Values.env.TZ }}"
+            - name: PGID
+              value: "{{ .Values.env.PGID }}"
+            - name: PUID
+              value: "{{ .Values.env.PUID }}"
       volumes:
         - name: config
-          hostPath:
-            path: "{{ .Values.localPath }}/{{ .Values.nameOverride }}-config"
+          persistentVolumeClaim:
+            claimName: {{ include "x-arr-chart.fullname" . }}
         - name: data
-          hostPath:
-            path: "{{ .Values.localPath }}/{{ .Values.nameOverride }}-data"
+          nfs:
+            server: "{{ .Values.nfs.server }}"
+            path: "{{ .Values.nfs.path.data }}"
         - name: downloads
-          hostPath:
-            path: "{{ .Values.localPath }}/downloads"
+          nfs:
+            server: "{{ .Values.nfs.server }}"
+            path: "{{ .Values.nfs.path.downloads }}"

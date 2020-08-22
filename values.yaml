@@ -10,24 +10,30 @@ image:
   pullPolicy: IfNotPresent
   port: 8989
 
-dataPath: "/tv"
 imagePullSecrets: []
 nameOverride: "sonarr"
 fullnameOverride: "sonarr"
-localPath: /nfs-data
-downloadStorage: 10Gi
-configStorage: 1Gi
+# where does the container expect the data?
+# Sonarr = /tv
+# Radarr = /movies
+# Lidarr = /music
+dataPath: /tv
+env:
+  TZ: America/Los_Angeles
+  PGID: 1000
+  PUID: 1000
 
 probes:
   livenessProbe:
     timeoutSeconds: 5
     periodSeconds: 20
+    initialDelaySeconds: 60
   readinessProbe:
     timeoutSeconds: 5
     periodSeconds: 20
+    initialDelaySeconds: 60
 
 podSecurityContext: {}
-  # fsGroup: 2000
 
 securityContext: {}
   # capabilities:
@@ -53,6 +59,19 @@ ingress:
   #  - secretName: chart-example-tls
   #    hosts:
   #      - chart-example.local
+
+# this PV is used for the /config directory, it must exist on the matchHostname
+# The pod will only be scheduled to the node which is listed in matchHostname
+pv:
+  storage: 1Gi
+  localPath: /local-pv/sonarr
+  matchHostname: k8snode1
+
+nfs:
+  server: 192.168.10.131
+  path:
+    downloads: /data/k8s/downloads
+    data: /data/video/Television
 
 resources:
   limits:

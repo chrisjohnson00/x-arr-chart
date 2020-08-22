@@ -6,55 +6,18 @@ replicaCount: 1
 
 image:
   repository: linuxserver/sonarr
-  tag: 3.0.3.741-ls190
+  tag: 3.0.3.911-ls38
   pullPolicy: IfNotPresent
   port: 8989
 
-dataPath: "/tv"
-imagePullSecrets: []
 nameOverride: "sonarr"
 fullnameOverride: "sonarr"
-
-podSecurityContext: {}
-  # fsGroup: 2000
-
-securityContext: {}
-  # capabilities:
-  #   drop:
-  #   - ALL
-  # readOnlyRootFilesystem: true
-  # runAsNonRoot: true
-  # runAsUser: 1000
-
-service:
-  type: ClusterIP
-  port: 80
+dataPath: /tv
 
 ingress:
-  enabled: true
-  annotations: {}
-    # kubernetes.io/ingress.class: nginx
-    # kubernetes.io/tls-acme: "true"
   hosts:
     - host: sonarr.cluster.int
       paths: ['/']
-  tls: []
-  #  - secretName: chart-example-tls
-  #    hosts:
-  #      - chart-example.local
 
-resources:
-  limits:
-    cpu: 250m
-    memory: 600Mi
-  requests:
-    cpu: 50m
-    memory: 200Mi
-
-probes:
-  livenessProbe:
-    timeoutSeconds: 10
-    periodSeconds: 20
-  readinessProbe:
-    timeoutSeconds: 10
-    periodSeconds: 20
+pv:
+  localPath: /local-pv/sonarr
