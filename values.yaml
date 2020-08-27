@@ -70,7 +70,7 @@ pv:
 nfs:
   server: 192.168.10.131
   path:
-    downloads: /data/k8s/downloads
+    downloads: /data/video/downloads
     data: /data/video/Television
 
 resources:
