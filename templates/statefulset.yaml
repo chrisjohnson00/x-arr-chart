@@ -4,7 +4,7 @@ metadata:
   name: {{ include "x-arr-chart.fullname" . }}
   labels:
     {{- include "x-arr-chart.labels" . | nindent 4 }}
-  app: {{ include "x-arr-chart.fullname" . }}
+    app: {{ include "x-arr-chart.fullname" . }}
 spec:
   replicas: {{ .Values.replicaCount }}
   serviceName: {{ .Values.nameOverride }}
