@@ -33,7 +33,8 @@ probes:
     periodSeconds: 20
     initialDelaySeconds: 60
 
-podSecurityContext: {}
+podSecurityContext:
+  fsGroup: 1000
 
 securityContext: {}
   # capabilities:
@@ -60,15 +61,16 @@ ingress:
   #    hosts:
   #      - chart-example.local
 
-# this PV is used for the /config directory, it must exist on the matchHostname
-# The pod will only be scheduled to the node which is listed in matchHostname
-pv:
+# this PVC is used for the /config directory
+# openebs jiva allows using a pvc which is provisioned as a local directory on the host, and it replicates across all
+# the nodes in the cluster.  Which results in the ability to schedule the work on any node, and still have the
+# performance from a local path mount for sqllite
+pvc:
+  storageClassName: openebs-jiva-default
   storage: 1Gi
-  localPath: /local-pv/sonarr
-  matchHostname: k8snode1
 
 nfs:
-  server: 192.168.10.131
+  server: 192.168.1.131
   path:
     downloads: /data/video/downloads
     data: /data/video/Television

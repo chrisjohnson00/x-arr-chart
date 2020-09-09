@@ -3,9 +3,9 @@ kind: PersistentVolumeClaim
 metadata:
   name: {{ include "x-arr-chart.fullname" . }}
 spec:
-  storageClassName: local-storage
+  storageClassName: {{ .Values.pvc.storageClassName }}
   accessModes:
     - ReadWriteOnce
   resources:
     requests:
-      storage: {{ .Values.pv.storage }}
+      storage: {{ .Values.pvc.storage }}
